@@ -26,7 +26,11 @@
         <p class="form_label">
           <i class="fa fa-close" style="font-size: 36px" @click="div_hide"></i>
         </p>
-        <form>
+   
+           
+
+
+        <div>
           <p>
             <input type="text" placeholder="Enter appName" v-model="appname" />
           </p>
@@ -39,24 +43,34 @@
           </p>
           <p><input type="text" placeholder="Enter Email" v-model="email" /></p>
           <p>
-            <input type="password" placeholder="password" v-model="password" />
+            <input type="text" placeholder="password" v-model="password" />
           </p>
           <p>
             <input type="text" placeholder="Enter weblink" v-model="link" />
           </p>
-          <p><input type="submit" id="addlink" value="ADD LINK" @click="addlink" /></p>
-        </form>
+          <p>
+            <input
+              type="submit"
+              id="addlink2"
+              value="ADD LINK"
+              @click="addlink"
+            />
+          </p>
+        </div>
       </div>
     </div>
-   
     <div id="wrapper1">
       <div class="form_div">
         <p class="form_label">
           <i class="fa fa-close" style="font-size: 36px" @click="div_hide"></i>
         </p>
-        <form>
+        <div>
           <p>
-            <input type="text" placeholder="Enter appName" v-model="appname" />
+            <input
+                  type="text"
+                  placeholder="Enter appName"
+                  v-model="appname"
+                />
           </p>
           <p>
             <input
@@ -67,17 +81,22 @@
           </p>
           <p><input type="text" placeholder="Enter Email" v-model="email" /></p>
           <p>
-            <input type="password" placeholder="password" v-model="password" />
+            <input type="text" placeholder="password" v-model="password" />
           </p>
           <p>
             <input type="text" placeholder="Enter weblink" v-model="link" />
           </p>
-          <p><input type="submit" id="addlink" value="EDIT LINK" @click="editlinks" /></p>
-        </form>
+          <p>
+            <input
+              type="submit"
+              id="addlink1"
+              value="EDIT LINK"
+              @click="editlinks"
+            />
+          </p>
+        </div>
       </div>
     </div>
-        
-
 
     <table id="table">
       <thead>
@@ -92,7 +111,7 @@
       </thead>
 
       <tbody>
-        <tr v-for="space in this.index.links" :key="space.id">
+        <tr v-for="space in this.index" :key="space.id">
           <td>{{ space.appname }}</td>
           <td>{{ space.username }}</td>
           <td>{{ space.email }}</td>
@@ -101,8 +120,25 @@
             <a :href="space.link" target="_blank">{{ space.link }}</a>
           </td>
           <td>
-            <i class="fa fa-edit" style="font-size: 24px"  @click="updatelinks(space.id,space.appname,space.username,space.email,space.password,space.link)"></i>
-            <i class="fa fa-trash-o" style="font-size: 24px" @click="deletelink(space.id)"></i>
+            <i
+              class="fa fa-edit"
+              style="font-size: 24px"
+              @click="
+                updatelinks(
+                  space._id,
+                  space.appname,
+                  space.username,
+                  space.email,
+                  space.password,
+                  space.link
+                )
+              "
+            ></i>
+            <i
+              class="fa fa-trash-o"
+              style="font-size: 24px"
+              @click="deletelink(space._id)"
+            ></i>
           </td>
         </tr>
       </tbody>
@@ -110,7 +146,8 @@
   </html>
 </template>
 <script>
-import passwordservice from "../services/passwordservice.js";
+// import passwordservice from "../services/passwordservice.js";
+import axios from "axios";
 export default {
   name: "passwordList",
   components: {},
@@ -123,15 +160,20 @@ export default {
       email: "",
       password: "",
       link: "",
-      id:0
+      id: "",
+      token: "",
     };
   },
   methods: {
-    getdata: function (owner) {
-      passwordservice
-        .alllinks(owner)
+    getdata: function () {
+      axios
+        .get("https://clever-khakis.cyclic.app/passwords/passwords", {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
         .then((response) => {
-          this.index = response.data;
+          this.index = response.data.data;
           this.length = this.index.length;
           if (this.length == 0) {
             this.message = "no  contacts to display";
@@ -140,16 +182,29 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+
+      // passwordservice
+      //   .alllinks(owner)
+      //   .then((response) => {
+      //     this.index = response.data;
+      //     this.length = this.index.length;
+      //     if (this.length == 0) {
+      //       this.message = "no  contacts to display";
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
     },
-  
-     reset(){
-        this.appname="";
-        this.username="";
-        this.email="";
-        this.password="";
-        this.link="";
-     },
-      
+
+    reset() {
+      this.appname = "";
+      this.username = "";
+      this.email = "";
+      this.password = "";
+      this.link = "";
+    },
+
     div_show() {
       document.getElementById("wrapper").style.display = "block";
       document.getElementById("table").style.display = "none";
@@ -161,85 +216,163 @@ export default {
       document.getElementById("table").style.display = "block";
       this.reset();
       // location.reload();
-
     },
 
-    addlink() {
-      var data = {
-        appname: this.appname,
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        link: this.link,
-        owner: this.owner,
-      };
+    async addlink() {
+      // const headers = { Authorization: `Bearer ${this.token}` };
 
-      passwordservice
-        .createlinks(data)
+      // appname: this.appname,
+      //       username: this.username,
+      //       email: this.email,
+      //       password: this.password,
+      //       link: this.link,
+      //       owner: this.owner,
+
+      await axios
+        .post(
+          "https://clever-khakis.cyclic.app/passwords/addpassword",
+          {
+            appname: this.appname,
+            username: this.username,
+            email: this.email,
+            password: this.password,
+            link: this.link,
+            owner: this.owner,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then(() => {
           document.getElementById("wrapper").style.display = "none";
-          this.getdata(this.owner);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    
-     deletelink: function (id) {
-      passwordservice.deletelink(id)
-        .then((response) => {  
-          this.getdata(this.owner);
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      },
+          document.getElementById("table").style.display = "block";
 
-    updatelinks:function(id,appname,username,email,password,link) {
-      this.id=id;
-      this.appname=appname;
-      this.username=username;
-      this.email=email;
-      this.password=password;
-      this.link=link;
+          this.getdata();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      // var data = {
+      //   appname: this.appname,
+      //   username: this.username,
+      //   email: this.email,
+      //   password: this.password,
+      //   link: this.link,
+      //   owner: this.owner,
+      // };
+
+      // passwordservice
+      //   .createlinks(data)
+      //   .then(() => {
+      //     document.getElementById("wrapper").style.display = "none";
+      //     this.getdata(this.owner);
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+    },
+
+    deletelink: function (id) {
+      const url =
+        "https://clever-khakis.cyclic.app/passwords/deletepassword/" + id;
+      axios
+        .delete(url, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then(() => {
+          this.getdata();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      // passwordservice
+      //   .deletelink(id)
+      //   .then((response) => {
+      //     this.getdata(this.owner);
+      //     console.log(response.data);
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+    },
+
+    updatelinks: function (id, appname, username, email, password, link) {
+      this.id = id;
+      this.appname = appname;
+      this.username = username;
+      this.email = email;
+      this.password = password;
+      this.link = link;
       document.getElementById("wrapper1").style.display = "block";
       document.getElementById("table").style.display = "none";
-
     },
 
-  editlinks(){
-       
-    var data = {
-        appname: this.appname,
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        link: this.link,
-        owner: this.owner,
-      };
-      console.log(data);
-   passwordservice.updatelinks(this.id, data)
+    async editlinks() {
+      const url =
+        "https://clever-khakis.cyclic.app/passwords/updatepasssword/" + this.id;
+      await axios
+        .put(
+          url,
+          {
+            appname: this.appname,
+            username: this.username,
+            email: this.email,
+            password: this.password,
+            link: this.link,
+            owner: this.owner,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then(() => {
-          this.getdata(this.owner);
+          
+      document.getElementById("wrapper1").style.display = "none";
+      document.getElementById("table").style.display = "block";
+          this.getdata();
         })
         .catch((e) => {
-          alert(e);
+          console.log(e);
         });
-  }
-       
 
+      // var data = {
+      //   appname: this.appname,
+      //   username: this.username,
+      //   email: this.email,
+      //   password: this.password,
+      //   link: this.link,
+      //   owner: this.owner,
+      // };
+      // console.log(data);
+      // passwordservice
+      //   .updatelinks(this.id, data)
+      //   .then(() => {
+      //     this.getdata(this.owner);
+      //   })
+      //   .catch((e) => {
+      //     alert(e);
+      //   });
+    },
   },
   created() {
     this.owner = localStorage.getItem("loggedemail");
+    this.token = localStorage.getItem("token");
     // console.log(localStorage.getItem("token"));
-    this.getdata(this.owner);
+    this.getdata();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#wrapper1{
+#wrapper1 {
   display: none;
 }
 #wrapper1 {
@@ -325,14 +458,13 @@ input[type="password"] {
   #wrapper h1 {
     font-size: 30px;
   }
-   
+
   #wrapper1 {
     width: 100%;
   }
   #wrapper1 h1 {
     font-size: 30px;
   }
-
 
   .form_div {
     width: 50%;

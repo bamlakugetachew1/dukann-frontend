@@ -82,9 +82,9 @@
 </template>
 
 <script>
-import passwordservice from "../services/passwordservice.js";
-import router from "../index.js";
-
+// import passwordservice from "../services/passwordservice.js";
+ import router from "../index.js";
+ import axios from "axios";
 export default {
   name: "loginUser",
   components: {},
@@ -99,16 +99,13 @@ export default {
   },
   created() {},
   methods: {
-    login() {
-      var data = {
+  async  login() {
+      await axios.post("https://clever-khakis.cyclic.app/users/login", {
         email: this.email,
         password: this.password,
-      };
-      passwordservice
-        .login(data)
-        .then((response) => {
-          this.token = response.data.data.token;
-          this.loggedemail = response.data.data.email;
+        }).then((response)=>{
+          this.token = response.data.token;
+          this.loggedemail = response.data.email;
           this.success = response.data.success;
           if (this.success == true) {
             localStorage.setItem("token", this.token);
@@ -117,12 +114,36 @@ export default {
               name: "passwordList",
               params: { loggedemail: this.loggedemail}
             });
-
           }
-        })
-        .catch((e) => {
-          console.log(e);
+         }).catch((e)=>{
+             console.log(e)
         });
+
+      // var data = {
+      // };
+      // var data = JSON.stringify({
+      //   email: this.email,
+      //   password: this.password,
+      // });
+      // passwordservice
+      //   .login(data)
+      //   .then((response) => {
+      //     this.token = response.data.data.token;
+      //     this.loggedemail = response.data.data.email;
+      //     this.success = response.data.success;
+      //     if (this.success == true) {
+      //       localStorage.setItem("token", this.token);
+      //       localStorage.setItem("loggedemail",this.loggedemail);
+      //       router.push({
+      //         name: "passwordList",
+      //         params: { loggedemail: this.loggedemail}
+      //       });
+
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
     },
   },
 };
@@ -138,11 +159,10 @@ export default {
   font-family: Raleway, sans-serif;
 }
 
-.error{
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: darkgrey;
-
+.error {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: darkgrey;
 }
 body {
   background: linear-gradient(90deg, #c7c5f4, #776bcc);

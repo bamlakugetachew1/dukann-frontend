@@ -1,160 +1,197 @@
 <template>
   <!DOCTYPE html>
   <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Login page</title>
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-   
-   <div class="container">
-     <div class="screen">
-       <div class="screen__content">
-        <h3 class="error" v-if="this.success == true && this.count == 1">
-          successfully registerd  Login please      
-          </h3>
-          <h3 class="error" v-if="this.success == false && this.count == 1">
-            alerady a members please sign in     
-          </h3>
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </head>
+    <body>
+      <div class="container">
+        <div class="screen">
+          <div class="screen__content">
+            <h3 class="error" v-if="this.success == true && this.count == 1">
+              successfully registerd Login please
+            </h3>
+            <h3 class="error" v-if="this.success == false && this.count == 1">
+              alerady a members please sign in
+            </h3>
 
-         <div class="login">
-   
-           <div class="login__field">
-             <i class="fa fa-user"></i>
-             <input type="text" class="login__input" placeholder="User name"  v-model="name">
-           </div>
-                 
-                   <div class="login__field">
-             <i class="fa fa-envelope"></i>
-             <input type="email" class="login__input" placeholder="email"  v-model="email">
-           </div>
-   
-           <div class="login__field">
-             <i class=" fa fa-lock"></i>
-             <input type="password" class="login__input" placeholder="Password"  v-model="password">
-                     </div>
-             
-           <button class="button login__submit" name="signup" @click="signup">
-             <span class="button__text">SIGN UP Now</span>
-             <i class=" "></i>
-           </button>
+            <div class="login">
+              <div class="login__field">
+                <i class="fa fa-user"></i>
+                <input
+                  type="text"
+                  class="login__input"
+                  placeholder="User name"
+                  v-model="name"
+                />
+              </div>
+
+              <div class="login__field">
+                <i class="fa fa-envelope"></i>
+                <input
+                  type="email"
+                  class="login__input"
+                  placeholder="email"
+                  v-model="email"
+                />
+              </div>
+
+              <div class="login__field">
+                <i class="fa fa-lock"></i>
+                <input
+                  type="password"
+                  class="login__input"
+                  placeholder="Password"
+                  v-model="password"
+                />
+              </div>
+
+              <button
+                class="button login__submit"
+                name="signup"
+                @click="signup"
+              >
+                <span class="button__text">SIGN UP Now</span>
+                <i class=" "></i>
+              </button>
+            </div>
+
+            <p>
+              <a href="#" id="signup">
+                <router-link to="/loginUser"
+                  >Alerady Registred?sign in</router-link
+                ></a
+              >
+            </p>
+            <br />
           </div>
-   
-                   <p>
-                    <a href="#" id="signup"> <router-link to="/loginUser">Alerady Registred?sign in</router-link></a>
-                    </p><br>
-               
-       </div>
-   
-       <div class="screen__background">
-         <span class="screen__background__shape screen__background__shape4"></span>
-         <span class="screen__background__shape screen__background__shape3"></span>		
-         <span class="screen__background__shape screen__background__shape2"></span>
-         <span class="screen__background__shape screen__background__shape1"></span>
-       </div>		
-     </div>
-   </div>
-   </body>
-     </html>
-     <router-view />
-  
-  
-  </template>
-  
-  <script>
-  import passwordservice from "../services/passwordservice.js";
 
-  export default {
-    name: 'signupUser',
-    components: {
-    },
-    data(){
-      return{
-         name:"",
-         email:"",
-         password:"",
-         success:false,
-         index:"",
-         count:0
-      }
-    },
-    created(){
-    },
-    methods:{
-       signup(){
-        this.count=0
-        var data = {
-        name:this.name,
-        email: this.email,
-        password: this.password,
+          <div class="screen__background">
+            <span
+              class="screen__background__shape screen__background__shape4"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape3"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape2"
+            ></span>
+            <span
+              class="screen__background__shape screen__background__shape1"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
+  <router-view />
+</template>
 
-      };
-         passwordservice
-        .register(data)
-        .then((response) => {
-          this.success = response.data.success;
-          this.count = this.count + 1
-
+<script>
+import axios from "axios";
+export default {
+  name: "signupUser",
+  components: {},
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      success: false,
+      index: "",
+      count: 0,
+    };
+  },
+  created() {},
+  methods: {
+    async signup() {
+      this.count = 0;
+      await axios
+        .post("https://clever-khakis.cyclic.app/users/register", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
         })
-        .catch((e) => {
-          console.log(e);
+        .then((response)=>{
+          console.log(this.name);
+          this.success = response.data.success;
+          this.count = this.count + 1;
+        }).catch((e)=>{
+          console.log(e)
         });
-         
+      // this.count = 0;
+      // var data = {
+      //   name: this.name,
+      //   email: this.email,
+      //   password: this.password,
+      // };
+      // passwordservice
+      //   .register(data)
+      //   .then((response) => {
+      //     this.success = response.data.success;
+      //     this.count = this.count + 1;
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
+    },
+  },
+};
+</script>
 
+<style>
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
-       }
-    }
-  }
-  </script>
-  
-  <style>
-       
-  @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
-  
-  * {
+* {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;	
+  padding: 0;
   font-family: Raleway, sans-serif;
-  }
-  .error{
-    text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: darkgrey;
-
 }
-  
-  body {
-  background: linear-gradient(90deg, #C7C5F4, #776BCC);		
-  }
-  
-  .container {
+.error {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: darkgrey;
+}
+
+body {
+  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  }
-  
-  .screen {		
-  background: linear-gradient(90deg, #5D54A4, #7C78B8);		
-  position: relative;	
+}
+
+.screen {
+  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+  position: relative;
   height: 630px;
-  width: 360px;	
-  box-shadow: 0px 0px 24px #5C5696;
-  }
-  
-  .screen__content {
+  width: 360px;
+  box-shadow: 0px 0px 24px #5c5696;
+}
+
+.screen__content {
   z-index: 1;
-  position: relative;	
+  position: relative;
   height: 100%;
-  }
-  
-  .screen__background {		
+}
+
+.screen__background {
   position: absolute;
   top: 0;
   left: 0;
@@ -162,117 +199,117 @@
   bottom: 0;
   z-index: 0;
   -webkit-clip-path: inset(0 0 0 0);
-  clip-path: inset(0 0 0 0);	
-  }
-  
-  .screen__background__shape {
+  clip-path: inset(0 0 0 0);
+}
+
+.screen__background__shape {
   transform: rotate(45deg);
   position: absolute;
-  }
-  
-  .screen__background__shape1 {
+}
+
+.screen__background__shape1 {
   height: 520px;
   width: 520px;
-  background: #FFF;	
+  background: #fff;
   top: -50px;
-  right: 120px;	
+  right: 120px;
   border-radius: 0 72px 0 0;
-  }
-  
-  .screen__background__shape2 {
+}
+
+.screen__background__shape2 {
   height: 220px;
   width: 220px;
-  background: #6C63AC;	
+  background: #6c63ac;
   top: -172px;
-  right: 0;	
+  right: 0;
   border-radius: 32px;
-  }
-  
-  .screen__background__shape3 {
+}
+
+.screen__background__shape3 {
   height: 540px;
   width: 190px;
-  background: linear-gradient(270deg, #5D54A4, #6A679E);
+  background: linear-gradient(270deg, #5d54a4, #6a679e);
   top: -24px;
-  right: 0;	
+  right: 0;
   border-radius: 32px;
-  }
-  
-  .screen__background__shape4 {
+}
+
+.screen__background__shape4 {
   height: 400px;
   width: 200px;
-  background: #7E7BB9;	
+  background: #7e7bb9;
   top: 420px;
-  right: 50px;	
+  right: 50px;
   border-radius: 60px;
-  }
-  
-  .login {
+}
+
+.login {
   width: 320px;
   padding: 30px;
   padding-top: 30px;
-  }
-  
-  .login__field {
-  padding: 20px 0px;	
-  position: relative;	
-  }
-  
-  .login__icon {
+}
+
+.login__field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.login__icon {
   position: absolute;
   top: 30px;
-  color: #7875B5;
-  }
-  
-  .login__input {
+  color: #7875b5;
+}
+
+.login__input {
   border: none;
-  border-bottom: 2px solid #D1D1D4;
+  border-bottom: 2px solid #d1d1d4;
   background: none;
   padding: 10px;
   padding-left: 24px;
   font-weight: 700;
   width: 75%;
-  transition: .2s;
-  }
-  
-  .login__input:active,
-  .login__input:focus,
-  .login__input:hover {
+  transition: 0.2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
   outline: none;
-  border-bottom-color: #6A679E;
-  }
-  
-  .login__submit {
+  border-bottom-color: #6a679e;
+}
+
+.login__submit {
   background: #fff;
   font-size: 14px;
   margin-top: 30px;
   padding: 16px 20px;
   border-radius: 26px;
-  border: 1px solid #D4D3E8;
+  border: 1px solid #d4d3e8;
   text-transform: uppercase;
   font-weight: 700;
   display: flex;
   align-items: center;
   width: 100%;
-  color: #4C489D;
-  box-shadow: 0px 2px 2px #5C5696;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
   cursor: pointer;
-  transition: .2s;
-  }
-  
-  .login__submit:active,
-  .login__submit:focus,
-  .login__submit:hover {
-  border-color: #6A679E;
+  transition: 0.2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+  border-color: #6a679e;
   outline: none;
-  }
-  
-  .button__icon {
+}
+
+.button__icon {
   font-size: 24px;
   margin-left: auto;
-  color: #7875B5;
-  }
-  
-  .social-login {	
+  color: #7875b5;
+}
+
+.social-login {
   position: absolute;
   height: 140px;
   width: 160px;
@@ -280,52 +317,49 @@
   bottom: 0px;
   right: 0px;
   color: #fff;
-  }
-  
-  .social-icons {
+}
+
+.social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  }
-  
-  .social-login__icon {
+}
+
+.social-login__icon {
   padding: 20px 10px;
   color: #fff;
-  text-decoration: none;	
-  text-shadow: 0px 0px 8px #7875B5;
-  }
-  
-  .social-login__icon:hover {
-  transform: scale(1.5);	
-  }
-  
-  #signup{
-   padding-top:10px;
-   padding-left:32px;
-   font-size:15px;
-   color:black;
-   font-weight:bold;
-  }
-  
-  .fa {
+  text-decoration: none;
+  text-shadow: 0px 0px 8px #7875b5;
+}
+
+.social-login__icon:hover {
+  transform: scale(1.5);
+}
+
+#signup {
+  padding-top: 10px;
+  padding-left: 32px;
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+
+.fa {
   padding: 20px;
   font-size: 22px;
   width: 50px;
   text-align: center;
   text-decoration: none;
-  
-  }
-  .fa1{
-  color:red;
-  }
-  .space{
-   display:flex;
-   justify-content: space-around;
-  }
-  
-  .shift{
-  padding-left:100px;
-  }
-  
-  
-  </style>
+}
+.fa1 {
+  color: red;
+}
+.space {
+  display: flex;
+  justify-content: space-around;
+}
+
+.shift {
+  padding-left: 100px;
+}
+</style>
