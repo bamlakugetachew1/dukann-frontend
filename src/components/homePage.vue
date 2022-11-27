@@ -251,7 +251,7 @@ if (e.target.value === "Min Price") {
 
     detailview(productid){
 
-      var url = "http://localhost:8080/productCatagory?productid="+productid;
+      var url = "https://dukaanethiopia.netlify.app/productCatagory?productid="+productid;
       window.location.href=url;
         
     },
