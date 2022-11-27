@@ -1,7 +1,7 @@
 <template>
   <div class="col-4">
     <a
-      ><img class="card__image loading" v-bind:src="'http://localhost:3000/uploads/' + imageurl" alt="" /> </a>
+      ><img class="card__image loading" v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + imageurl" alt="" /> </a>
     <a href="" id="special2">
       <h4 id="special1"  :class="this.$store.getters.getrest == 0 ? 'card__title loading' : 'light-theme'">
         <router-link
@@ -77,7 +77,7 @@ export default {
     sellerid: String,
   },
   async created() {
-    this.concat = "http://localhost:3000/uploads/" + this.imageurl;
+    this.concat = "https://friendly-pink-pantyhose.cyclic.app/uploads/" + this.imageurl;
     this.token = localStorage.getItem("token");
   },
   data() {
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     async deletes() {
-      var url = "http://localhost:3000/product/delete/" + this.id;
+      var url = "https://friendly-pink-pantyhose.cyclic.app/product/delete/" + this.id;
       await axios
         .delete(url, {
           headers: {
@@ -112,7 +112,7 @@ export default {
       if (localStorage.getItem("isuserauthenticated") == "true") {
         await axios
           .post(
-            "http://localhost:3000/user/addtocart",
+            "https://friendly-pink-pantyhose.cyclic.app/user/addtocart",
             {
               productid: this.id,
               userid: localStorage.getItem("sellerid"),
@@ -145,7 +145,7 @@ export default {
       if (localStorage.getItem("isuserauthenticated") == "true") {
         await axios
           .post(
-            "http://localhost:3000/user/like",
+            "https://friendly-pink-pantyhose.cyclic.app/user/like",
             {
               productid: this.id,
               userid: localStorage.getItem("sellerid"),
