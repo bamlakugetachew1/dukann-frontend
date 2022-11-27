@@ -27,7 +27,7 @@
 						  <div class="tab-pane active" id="pic-1"><img v-bind:src=this.imageurl alt="images" /></div>
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li v-for="product in this.products.productimages"><a data-target="#pic-2" data-toggle="tab"><img  v-bind:src="'http://localhost:3000/uploads/' + product" alt="images" @click="changeimageurl(product)"/></a></li>
+						  <li v-for="product in this.products.productimages"><a data-target="#pic-2" data-toggle="tab"><img  v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + product" alt="images" @click="changeimageurl(product)"/></a></li>
 						</ul>
 						
 					</div>
@@ -85,18 +85,18 @@ export default{
     },
     methods:{
       async getindivisualproducts() {
-        var url = "http://localhost:3000/product/getindivisualproducts/" + this.productid;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/getindivisualproducts/" + this.productid;
         await axios.get(url)
         .then((res) => {
           this.products = res.data.data;
-          this.imageurl = 'http://localhost:3000/uploads/' + this.products.productimages[0];
+          this.imageurl = 'https://friendly-pink-pantyhose.cyclic.app/uploads/' + this.products.productimages[0];
         })
         .catch((err) => {
           console.log(err);
         });
     },
     changeimageurl(data){
-      this.imageurl = 'http://localhost:3000/uploads/' + data;
+      this.imageurl = 'https://friendly-pink-pantyhose.cyclic.app/uploads/' + data;
     }
    }
 
