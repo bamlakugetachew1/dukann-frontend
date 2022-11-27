@@ -100,7 +100,7 @@ export default {
 
       if(this.required == true){
         await axios
-        .post("http://localhost:3000/user/register", {
+        .post("https://friendly-pink-pantyhose.cyclic.app/user/register", {
           fullname: this.fullname,
           phonenumber: this.phonenumber,
           email: this.email,
