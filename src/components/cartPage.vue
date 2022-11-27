@@ -14,7 +14,7 @@
 
   <div class="product" v-for="cartitems in this.data" :key="cartitems._id">
     <div class="product-image">
-      <img v-bind:src="'http://localhost:3000/uploads/' + cartitems.productimages[0]" alt="productimages">
+      <img v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + cartitems.productimages[0]" alt="productimages">
     </div>
     <div class="product-details">
       <div class="product-title">{{cartitems.name}}</div>
@@ -77,7 +77,7 @@ export default{
       document.getElementById("checkout").innerHTML="_______";
       const theButton = document.querySelector(".checkout");
       theButton.classList.add("button--loading");
-      await axios.post("http://localhost:3000/user/pay",{
+      await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/pay",{
       totalprice:this.totalprice+15
       }).then((response) => { 
          window.location.href =response.data.link;     
@@ -90,7 +90,7 @@ export default{
      
 
      async getallcartitems(){
-        await axios.post("http://localhost:3000/product/usercartitems", {
+        await axios.post("https://friendly-pink-pantyhose.cyclic.app/product/usercartitems", {
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
              this.data = response.data.data;
@@ -103,7 +103,7 @@ export default{
         })
         },
         async removefromcart(productid){
-          await axios.post("http://localhost:3000/user/removefromcart", {
+          await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/removefromcart", {
            productid:productid,
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
