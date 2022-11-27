@@ -92,7 +92,7 @@ export default {
   async  isDisabled(e) {
 
     if (e.target.value === "Most Liked") {
-        var url = "http://localhost:3000/product/mostliked/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/mostliked/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -112,7 +112,7 @@ export default {
 
     
     if (e.target.value === "MAX Price") {
-        var url = "http://localhost:3000/product/sortbylargeprice/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/sortbylargeprice/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -132,7 +132,7 @@ export default {
 
 
     if (e.target.value === "Min Price") {
-        var url = "http://localhost:3000/product/sortbysmallprice/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/sortbysmallprice/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -150,7 +150,7 @@ export default {
 
 
        if (e.target.value === "Oldest") {
-        var url = "http://localhost:3000/product/sortbyoldest/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/sortbyoldest/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -168,7 +168,7 @@ export default {
 
 
       if (e.target.value === "Newest") {
-        var url = "http://localhost:3000/product/sortbynewst/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/sortbynewst/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -188,7 +188,7 @@ export default {
         if(this.pagenumber < this.allowed){
           this.pagenumber = this.pagenumber + 1;    
           }
-         var url = "http://localhost:3000/product/getmyproducts/" + this.pagenumber;
+         var url = "https://friendly-pink-pantyhose.cyclic.app/product/getmyproducts/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -207,7 +207,7 @@ export default {
          if(this.pagenumber > 1){
           this.pagenumber = this.pagenumber - 1;
          }
-         var url = "http://localhost:3000/product/getmyproducts/" + this.pagenumber;
+         var url = "https://friendly-pink-pantyhose.cyclic.app/product/getmyproducts/" + this.pagenumber;
          await axios
         .get(url, {
           headers: {
@@ -225,7 +225,7 @@ export default {
     
     async getmyproducts() {
       await axios
-        .get("http://localhost:3000/product/getmyproducts/1", {
+        .get("https://friendly-pink-pantyhose.cyclic.app/product/getmyproducts/1", {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
