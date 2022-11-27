@@ -198,7 +198,7 @@ export default {
 
   .card__image.loading {
 			height: 320px;
-			width: 300px;
+			width: 330px;
 		}
  
      .loading {
