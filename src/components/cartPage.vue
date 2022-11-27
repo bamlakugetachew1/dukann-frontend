@@ -14,7 +14,7 @@
 
   <div class="product" v-for="cartitems in this.data" :key="cartitems._id">
     <div class="product-image">
-      <img v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + cartitems.productimages[0]" alt="productimages">
+      <img v-bind:src="cartitems.productimages[0]" alt="productimages">
     </div>
     <div class="product-details">
       <div class="product-title">{{cartitems.name}}</div>
