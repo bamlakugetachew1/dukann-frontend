@@ -24,7 +24,7 @@
 					<div class="preview col-md-6">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img v-bind:src=this.imageurl alt="images" /></div>
+						  <div class="tab-pane active" id="pic-1"><img v-bind:src="this.imageurl" alt="images" /></div>
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
 						  <li v-for="product in this.products.productimages"><a data-target="#pic-2" data-toggle="tab"><img  v-bind:src="product" alt="images" @click="changeimageurl(product)"/></a></li>
