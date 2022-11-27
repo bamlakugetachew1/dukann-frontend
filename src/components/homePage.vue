@@ -131,7 +131,7 @@ export default {
   async created(){
       this.getmyproducts();
       if(localStorage.getItem("isuserauthenticated") == "true"){
-           await axios.post("http://localhost:3000/user/countlike", {
+           await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/countlike", {
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
            this.$store.commit('changelikesValue',response.data.length);          
@@ -150,7 +150,7 @@ export default {
 async  isDisabled(e) {
   
 if (e.target.value === "Most Liked") {
-    var url = "http://localhost:3000/product/allproducts/mostliked/" + this.pagenumber;
+    var url = "https://friendly-pink-pantyhose.cyclic.app/product/allproducts/mostliked/" + this.pagenumber;
      await axios
     .get(url)
     .then((res) => {
@@ -163,7 +163,7 @@ if (e.target.value === "Most Liked") {
 
 
 if (e.target.value === "MAX Price") {
-    var url = "http://localhost:3000/product/allproducts/sortbylargeprice/" + this.pagenumber;
+    var url = "https://friendly-pink-pantyhose.cyclic.app/product/allproducts/sortbylargeprice/" + this.pagenumber;
      await axios
     .get(url)
     .then((res) => {
@@ -179,7 +179,7 @@ if (e.target.value === "MAX Price") {
 
 
 if (e.target.value === "Min Price") {
-    var url = "http://localhost:3000/product/allproducts/sortbysmallprice/" + this.pagenumber;
+    var url = "https://friendly-pink-pantyhose.cyclic.app/product/allproducts/sortbysmallprice/" + this.pagenumber;
      await axios
     .get(url)
     .then((res) => {
@@ -193,7 +193,7 @@ if (e.target.value === "Min Price") {
 
 
    if (e.target.value === "Oldest") {
-    var url = "http://localhost:3000/product/allproducts/sortbyoldest/" + this.pagenumber;
+    var url = "https://friendly-pink-pantyhose.cyclic.app/product/allproducts/sortbyoldest/" + this.pagenumber;
      await axios
     .get(url)
     .then((res) => {
@@ -206,7 +206,7 @@ if (e.target.value === "Min Price") {
 
 
   if (e.target.value === "Newest") {
-    var url = "http://localhost:3000/product/allproducts/sortbynewst/" + this.pagenumber;
+    var url = "https://friendly-pink-pantyhose.cyclic.app/product/allproducts/sortbynewst/" + this.pagenumber;
      await axios
     .get(url,)
     .then((res) => {
@@ -238,7 +238,7 @@ if (e.target.value === "Min Price") {
 
    
    async getallcartnumbers(){
-      await axios.post("http://localhost:3000/user/countcartitems", {
+      await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/countcartitems", {
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
            this.$store.commit('changecartnumbers',response.data.length);          
@@ -256,7 +256,7 @@ if (e.target.value === "Min Price") {
         
     },
   async  getbacklinks(){
-      await axios.post("http://localhost:3000/product/userliked", {
+      await axios.post("https://friendly-pink-pantyhose.cyclic.app/product/userliked", {
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
           this.$store.commit('changeloveditemsValue',response.data.data); 
@@ -267,7 +267,7 @@ if (e.target.value === "Min Price") {
         });
     },
   async  deleteloveditems(productid){
-    await axios.post("http://localhost:3000/user/unlikeproduct", {
+    await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/unlikeproduct", {
            productid:productid,
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
@@ -295,7 +295,7 @@ if (e.target.value === "Min Price") {
         if(this.pagenumber < this.allowed){
           this.pagenumber = this.pagenumber + 1;
           }
-         var url = "http://localhost:3000/product/getallproducts/" + this.pagenumber;
+         var url = "https://friendly-pink-pantyhose.cyclic.app/product/getallproducts/" + this.pagenumber;
          await axios
         .get(url)
         .then((res) => {
@@ -311,7 +311,7 @@ if (e.target.value === "Min Price") {
           this.pagenumber = this.pagenumber - 1;
          }
 
-        var url = "http://localhost:3000/product/getallproducts/" + this.pagenumber;
+        var url = "https://friendly-pink-pantyhose.cyclic.app/product/getallproducts/" + this.pagenumber;
          await axios
         .get(url)
         .then((res) => {
@@ -323,7 +323,7 @@ if (e.target.value === "Min Price") {
        },
 
     async getmyproducts() {
-      var url = "http://localhost:3000/product/getallproducts/" + this.pagenumber;
+      var url = "https://friendly-pink-pantyhose.cyclic.app/product/getallproducts/" + this.pagenumber;
       await axios.get(url)
         .then((res) => {
           this.products = res.data.data;
