@@ -161,7 +161,7 @@ export default {
       for (const i of Object.keys(this.selectedFile)) {
         formData.append("productimages", this.selectedFile[i]);
       }
-      await axios .post("http://localhost:3000/product/uploadimages", formData,{
+      await axios .post("https://friendly-pink-pantyhose.cyclic.app/product/uploadimages", formData,{
             headers: {
               Authorization: `Bearer ${this.token}`,
             },
@@ -190,7 +190,7 @@ export default {
         await this.onUploadFile();
         if (this.check == "imageadded") {
           await axios
-            .post("http://localhost:3000/product/addproducts", {
+            .post("https://friendly-pink-pantyhose.cyclic.app/product/addproducts", {
               sellerid: this.sellerid,
               price: this.price,
               name: this.name,
