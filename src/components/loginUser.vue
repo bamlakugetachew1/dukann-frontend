@@ -1,363 +1,277 @@
 <template>
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Login page</title>
-      <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
-        rel="stylesheet"
-      />
-    </head>
-    <body>
-      <div class="container">
-        <div class="screen">
-          <div class="screen__content">
-            <h3 class="error" v-if="this.success == false">
-              either password or email is incorrect tryagain
-            </h3>
-            <div class="login">
-              <div class="login__field">
-                <i class="fa fa-envelope"></i>
-                <input
-                  type="email"
-                  class="login__input"
-                  placeholder="email"
-                  v-model="email"
-                  required
-                />
-              </div>
-              <div class="login__field">
-                <i class="fa fa-lock"></i>
-                <input
-                  type="password"
-                  class="login__input"
-                  placeholder="Password"
-                  v-model="password"
-                  required
-                />
-              </div>
-              <button class="button login__submit" name="login" @click="login">
-                <span class="button__text">Log In Now</span>
-                <i class=" "></i>
-              </button>
-            </div>
-
-            <p>
-              <a href="#" id="signup">
-                <router-link to="/signupUser"
-                  >Don't Have an account?sign up</router-link
-                ></a
-              >
-            </p>
-            <br />
-          </div>
-
-          <div class="screen__background">
-            <span
-              class="screen__background__shape screen__background__shape4"
-            ></span>
-            <span
-              class="screen__background__shape screen__background__shape3"
-            ></span>
-            <span
-              class="screen__background__shape screen__background__shape2"
-            ></span>
-            <span
-              class="screen__background__shape screen__background__shape1"
-            ></span>
-          </div>
-        </div>
+  <div>
+    <div class="paddings">
+      <div class="shift">
+        <navigationBar isloginpage="true" />
       </div>
-    </body>
-  </html>
+    </div>
+  </div>
+  <div class="login-card" id="down">
+    <div v-if="this.message.length != 0">
+      <p @click="close" class="hover">X</p>
+      <p>either password or email is incorrect</p>
+    </div>
+    <h1>Log-in With</h1>
+    <p
+      name="login"
+      id="color"
+      class="login login-submit"
+      value="login"
+      @click="googlelogin"
+    >
+      GOOGLE
+    </p>
+    <p>OR</p>
+    <br />
+    <div>
+      <input
+        type="email"
+        name="user"
+        placeholder="Useremail"
+        v-model="email"
+        id="single"
+      />
+      <input
+        type="password"
+        name="pass"
+        placeholder="Password"
+        v-model="password"
+      />
+      <input
+        type="submit"
+        name="login"
+        class="login login-submit"
+        value="login"
+        @click="login"
+      />
+    </div>
+
+    <div class="login-help">
+      <a href="#" id="signup">
+        <router-link to="/signupUser"
+          >Don't have an a account?sign up</router-link
+        ></a
+      >
+    </div>
+  </div>
+  <footerView />
+
   <router-view />
 </template>
 
 <script>
 // import passwordservice from "../services/passwordservice.js";
- import router from "../index.js";
- import axios from "axios";
+import navigationBar from "./navigationBar.vue";
+import footerView from "./footerView.vue";
+import router from "../index.js";
+import axios from "axios";
 export default {
   name: "loginUser",
-  components: {},
+  components: {
+    navigationBar,
+    footerView,
+  },
   data() {
     return {
       email: "",
       password: "",
       token: "",
       success: true,
-      loggedemail: "",
+      sellerid: "",
+      message: "",
+      isuserauthenticated:false,
+      logfromhome:"",
+      googleloghome:""
     };
   },
-  created() {},
+  created() {
+    this.logfromhome  = this.$route.query.logfromhome;
+    this.googleloghome = this.$route.query.googleloghome;
+    localStorage.setItem("googleloghome",this.googleloghome);
+
+  },
   methods: {
-  async  login() {
-      await axios.post("https://clever-khakis.cyclic.app/users/login", {
-        email: this.email,
-        password: this.password,
-        }).then((response)=>{
+    close() {
+      this.message = "";
+    },
+    async googlelogin() {
+      window.location.href = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fuser%2Fcallback&scope=email%20profile&client_id=891540596553-bq711flvbol7ov9jorkps366jt9b06q7.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow";
+    },
+   
+
+    async login() {
+      await axios
+        .post("http://localhost:3000/user/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
           this.token = response.data.token;
-          this.loggedemail = response.data.email;
           this.success = response.data.success;
+          this.sellerid = response.data.sellerid;
+          this.message = response.data.message;
           if (this.success == true) {
             localStorage.setItem("token", this.token);
-            localStorage.setItem("loggedemail",this.loggedemail);
-            router.push({
-              name: "passwordList",
-              params: { loggedemail: this.loggedemail}
+            localStorage.setItem("sellerid", this.sellerid);
+            localStorage.setItem("isuserauthenticated",true);
+             
+            if(this.logfromhome == "true"){
+              router.push({
+              name: "homePage",
+              params: { loggedemail: this.loggedemail },
             });
+
+            }
+            else{
+              router.push({
+              name: "passwordList",
+              params: { loggedemail: this.loggedemail },
+            });
+            }
+       
+
           }
-         }).catch((e)=>{
-             console.log(e)
+        })
+        .catch((e) => {
+          console.log(e);
         });
-
-      // var data = {
-      // };
-      // var data = JSON.stringify({
-      //   email: this.email,
-      //   password: this.password,
-      // });
-      // passwordservice
-      //   .login(data)
-      //   .then((response) => {
-      //     this.token = response.data.data.token;
-      //     this.loggedemail = response.data.data.email;
-      //     this.success = response.data.success;
-      //     if (this.success == true) {
-      //       localStorage.setItem("token", this.token);
-      //       localStorage.setItem("loggedemail",this.loggedemail);
-      //       router.push({
-      //         name: "passwordList",
-      //         params: { loggedemail: this.loggedemail}
-      //       });
-
-      //     }
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
     },
   },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Raleway, sans-serif;
+.hover:hover {
+  color: darkgoldenrod;
+  background-color: rgba(44, 109, 196, 0.979);
 }
-
-.error {
+p {
   text-align: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: darkgrey;
 }
-body {
-  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+#color {
+  color: rgb(231, 142, 25);
+}
+.paddings {
+  background: radial-gradient(#fff, #ffd6d6);
+  width: 100%;
+  height: 50px;
+}
+.shift {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#down {
+  margin-top: 20px;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+.login-card {
+  padding: 40px;
+  width: 274px;
+  background-color: #f7f7f7;
+  margin: 0 auto 10px;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
-.screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+.login-card h1 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 2.3em;
+}
+
+.login-card input[type="submit"] {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
   position: relative;
-  height: 630px;
-  width: 360px;
-  box-shadow: 0px 0px 24px #5c5696;
 }
 
-.screen__content {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-}
-
-.screen__background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  -webkit-clip-path: inset(0 0 0 0);
-  clip-path: inset(0 0 0 0);
-}
-
-.screen__background__shape {
-  transform: rotate(45deg);
-  position: absolute;
-}
-
-.screen__background__shape1 {
-  height: 520px;
-  width: 520px;
+#single {
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
   background: #fff;
-  top: -50px;
-  right: 120px;
-  border-radius: 0 72px 0 0;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.login-card input[type="text"],
+input[type="password"] {
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-.screen__background__shape2 {
-  height: 220px;
-  width: 220px;
-  background: #6c63ac;
-  top: -172px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape3 {
-  height: 540px;
-  width: 190px;
-  background: linear-gradient(270deg, #5d54a4, #6a679e);
-  top: -24px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape4 {
-  height: 400px;
-  width: 200px;
-  background: #7e7bb9;
-  top: 420px;
-  right: 50px;
-  border-radius: 60px;
+.login-card input[type="text"]:hover,
+input[type="password"]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .login {
-  width: 320px;
-  padding: 30px;
-  padding-top: 30px;
-}
-
-.login__field {
-  padding: 20px 0px;
-  position: relative;
-}
-
-.login__icon {
-  position: absolute;
-  top: 30px;
-  color: #7875b5;
-}
-
-.login__input {
-  border: none;
-  border-bottom: 2px solid #d1d1d4;
-  background: none;
-  padding: 10px;
-  padding-left: 24px;
-  font-weight: 700;
-  width: 75%;
-  transition: 0.2s;
-}
-
-.login__input:active,
-.login__input:focus,
-.login__input:hover {
-  outline: none;
-  border-bottom-color: #6a679e;
-}
-
-.login__submit {
-  background: #fff;
+  text-align: center;
   font-size: 14px;
-  margin-top: 30px;
-  padding: 16px 20px;
-  border-radius: 26px;
-  border: 1px solid #d4d3e8;
-  text-transform: uppercase;
+  font-family: "Arial", sans-serif;
   font-weight: 700;
-  display: flex;
-  align-items: center;
+  height: 36px;
+  padding: 0 8px;
+  /* border-radius: 3px; */
+  /* -webkit-user-select: none;
+  user-select: none; */
+}
+
+.login-submit {
+  /* border: 1px solid #3079ed; */
+  border: 0px;
+  color: #4d90fe;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  background-color: #4d90fe;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
+.login-submit:hover {
+  /* border: 1px solid #2f5bb7; */
+  border: 0px;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  background-color: #357ae8;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
+
+.login-card a {
+  text-decoration: none;
+  color: #666;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  transition: opacity ease 0.5s;
+}
+
+.login-card a:hover {
+  opacity: 1;
+}
+
+.login-help {
   width: 100%;
-  color: #4c489d;
-  box-shadow: 0px 2px 2px #5c5696;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.login__submit:active,
-.login__submit:focus,
-.login__submit:hover {
-  border-color: #6a679e;
-  outline: none;
-}
-
-.button__icon {
-  font-size: 24px;
-  margin-left: auto;
-  color: #7875b5;
-}
-
-.social-login {
-  position: absolute;
-  height: 140px;
-  width: 160px;
   text-align: center;
-  bottom: 0px;
-  right: 0px;
-  color: #fff;
-}
-
-.social-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-login__icon {
-  padding: 20px 10px;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0px 0px 8px #7875b5;
-}
-
-.social-login__icon:hover {
-  transform: scale(1.5);
-}
-
-#signup {
-  padding-top: 10px;
-  padding-left: 32px;
-  font-size: 15px;
-  color: black;
-  font-weight: bold;
-}
-
-.fa {
-  padding: 20px;
-  font-size: 22px;
-  width: 50px;
-  text-align: center;
-  text-decoration: none;
-}
-.fa1 {
-  color: red;
-}
-.space {
-  display: flex;
-  justify-content: space-around;
-}
-
-.shift {
-  padding-left: 100px;
+  font-size: 12px;
 }
 </style>
