@@ -1,7 +1,7 @@
 <template>
   <div class="col-4">
     <a
-      ><img  v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + imageurl" alt="" /> </a>
+      ><img  v-bind:src="imageurl" alt="" /> </a>
     <a href="" id="special2">
       <h4 id="special1"  :class="this.$store.getters.getrest == 0 ? 'card__title loading' : 'light-theme'">
         <router-link
