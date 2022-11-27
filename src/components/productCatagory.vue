@@ -27,7 +27,7 @@
 						  <div class="tab-pane active" id="pic-1"><img v-bind:src=this.imageurl alt="images" /></div>
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs">
-						  <li v-for="product in this.products.productimages"><a data-target="#pic-2" data-toggle="tab"><img  v-bind:src="'https://friendly-pink-pantyhose.cyclic.app/uploads/' + product" alt="images" @click="changeimageurl(product)"/></a></li>
+						  <li v-for="product in this.products.productimages"><a data-target="#pic-2" data-toggle="tab"><img  v-bind:src="product" alt="images" @click="changeimageurl(product)"/></a></li>
 						</ul>
 						
 					</div>
@@ -96,7 +96,7 @@ export default{
         });
     },
     changeimageurl(data){
-      this.imageurl = 'https://friendly-pink-pantyhose.cyclic.app/uploads/' + data;
+      this.imageurl = data;
     }
    }
 
