@@ -54,7 +54,7 @@
     async showsaveditems(){
       if(localStorage.getItem("isuserauthenticated") == "true"){
       this.$store.commit('changeMessageValue',1); 
-      await axios.post("http://localhost:3000/product/userliked", {
+      await axios.post("https://friendly-pink-pantyhose.cyclic.app/product/userliked", {
            userid:localStorage.getItem("sellerid"),
            }).then((response) => { 
           this.$store.commit('changeloveditemsValue',response.data.data);          
