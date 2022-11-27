@@ -101,7 +101,7 @@ export default {
 
     async login() {
       await axios
-        .post("http://localhost:3000/user/login", {
+        .post("https://friendly-pink-pantyhose.cyclic.app/user/login", {
           email: this.email,
           password: this.password,
         })
