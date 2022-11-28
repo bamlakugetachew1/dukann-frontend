@@ -92,7 +92,7 @@ export default {
  },
       async googlelogin() {
       window.location.href =
-        "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fuser%2Fcallback&scope=email%20profile&client_id=891540596553-bq711flvbol7ov9jorkps366jt9b06q7.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow";
+        "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=https%3A%2F%2Fdukannethiopia.cyclic.app%2Fuser%2Fcallback&scope=email%20profile&client_id=891540596553-bq711flvbol7ov9jorkps366jt9b06q7.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow";
     },
     async register() {
       this.required = true;
