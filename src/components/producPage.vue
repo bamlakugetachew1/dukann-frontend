@@ -3,7 +3,7 @@
     <a
       ><img  v-bind:src="imageurl" alt="" /> </a>
     <a href="" id="special2">
-      <h4 id="special1"  :class="this.$store.getters.getrest == 0 ? 'card__title loading' : 'light-theme'">
+      <h4 id="special1" >
         <router-link
           :to="{ name: 'productCatagory', query: { productid: id } }"
           >{{ name }}</router-link
@@ -18,10 +18,10 @@
       <i class="far fa-star"></i>
     </div>
     <div class="line">
-      <p   :class="this.$store.getters.getrest == 0 ? 'price_title loading' : 'light-theme'">
+      <p>
         {{ price }} ETB
       </p>
-      <p   :class="this.$store.getters.getrest == 0 ? 'icon_title loading' : 'light-theme'"           @click="likeproduct" :style="[this.message=='found'?{'color':'red'}:{'color':'black'}]">
+      <p             @click="likeproduct" :style="[this.message=='found'?{'color':'red'}:{'color':'black'}]">
         <i
           v-if="!isadminpage"
           class="fa fa-heart"
@@ -29,7 +29,7 @@
           id="space"
         ></i>
       </p >
-       <p  :class="this.$store.getters.getrest == 0 ? 'icon_title loading' : 'light-theme'" >
+       <p >
         <router-link :to="{ name: 'productCatagory', query: { productid: id } }"
         >
         <i v-if="!isadminpage" class="fa fa-eye" aria-hidden="true"></i >
@@ -37,7 +37,7 @@
        </p>
      
 
-      <p :class="this.$store.getters.getrest == 0 ? 'icon_title loading' : 'light-theme'"  @click="addtocart" :style="[this.message1=='added'?{'color':'green'}:{'color':'black'}]">
+      <p   @click="addtocart" :style="[this.message1=='added'?{'color':'green'}:{'color':'black'}]">
         <i
           v-if="!isadminpage"
           class="fa fa-shopping-cart"
