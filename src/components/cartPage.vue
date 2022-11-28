@@ -77,7 +77,7 @@ export default{
       document.getElementById("checkout").innerHTML="_______";
       const theButton = document.querySelector(".checkout");
       theButton.classList.add("button--loading");
-      await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/pay",{
+      await axios.post("https://friendly-pink-pantyhose.cyclic.app/user/pay/" + localStorage.getItem("sellerid"),{
       totalprice:this.totalprice+15
       }).then((response) => { 
          window.location.href =response.data.link;     
