@@ -1,5 +1,4 @@
 <template>
-   <div class="body1">
   <div class="paddings">
     <div class="shift">
       <adminnav islistpage="true"/>
@@ -38,6 +37,8 @@
             <a href="">{{this.pagenumber}}</a> 
             <a href="#" @click="next">Next >></a>
         </div>
+      <div class="body1">
+
   <footerView />
   </div>
 </template>
@@ -255,10 +256,8 @@ export default {
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 .body1{
- 
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  margin-top: 350px;
+
 
 }
 
