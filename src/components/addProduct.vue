@@ -145,10 +145,6 @@ export default {
     onFileChange(e) {
       this.selectedFile = e.target.files;
       this.selectednumber = this.selectedFile.length;
-      console.log(this.selectedFile.length);
-      console.log(this.selectedFile);
-      // this.selectedFile = this.selectedFile[0];
-      // this.image_url = this.selectedFile.name;
     },
     close() {
       this.sucess = false;
