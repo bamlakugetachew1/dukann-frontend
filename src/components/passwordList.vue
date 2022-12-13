@@ -68,9 +68,10 @@ export default {
    mounted(){
    setInterval(function () {
       console.log("output");
-      if(this.$store.getters.getdeleteclick== 1){
+      if(localStorage.getItem("itemsdeleted")== "true"){
        this.getmyproducts();
-       this.$store.commit('changedeleteclickValue',0); 
+       localStorage.setItem("itemsdeleted","false");
+
       }
     }, 1000); 
   },
