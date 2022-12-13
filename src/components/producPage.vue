@@ -102,7 +102,7 @@ export default {
         })
         .then((res) => {
           // location.reload();
-	  this.$store.commit('changedeleteclickValue',1); 
+          localStorage.setItem("itemsdeleted","true");
 
           console.log(res);
         })
