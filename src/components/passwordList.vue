@@ -66,10 +66,13 @@ export default {
   },
   
    mounted(){
-    if(this.$store.getters.getDeleteclick == 1){
+   setInterval(function () {
+      console.log("output");
+      if(this.$store.getters.getDeleteclick == 1){
        this.getmyproducts();
        this.$store.commit('changedeleteclickValue',0); 
-    }
+      }
+    }, 1000); 
   },
   
   created() {
