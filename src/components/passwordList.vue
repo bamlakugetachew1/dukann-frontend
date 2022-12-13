@@ -76,6 +76,7 @@ export default {
   },
   
   created() {
+     this.$store.commit('changedeleteclickValue',0); 
      var  googleloghome = localStorage.getItem("googleloghome");
          if(googleloghome == "true"){
           localStorage.setItem("isuserauthenticated",true);
