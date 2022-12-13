@@ -69,6 +69,21 @@ export default {
     };
   },
   
+   mounted(){
+
+    setInterval( async function () {
+      if(localStorage.getItem("itemsdeleted") == "true"){
+       this.getmyproducts();
+       localStorage.setItem("itemsdeleted","false");
+
+      }
+    }, 1000);
+  
+
+  },
+  
+  
+  
   created() {
      var  googleloghome = localStorage.getItem("googleloghome");
          if(googleloghome == "true"){
