@@ -1,5 +1,5 @@
 <template>
-<div id="body1">
+   <div class="body1">
   <div class="paddings">
     <div class="shift">
       <adminnav islistpage="true"/>
@@ -254,11 +254,11 @@ export default {
 <style>
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
-#body1{
+.body1{
  
-  
-    min-height: 100vh;
-
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 
 }
 
