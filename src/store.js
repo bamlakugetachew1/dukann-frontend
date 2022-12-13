@@ -10,11 +10,16 @@ export default new Vuex.Store({
     cartitems:[],
     loveditems:[],
     cartnumbers:0,
-    restfound:0
+    restfound:0,
+    deleteclick:0
+
   },
   getters: {
     getMessage(state){
       return state.message
+    },
+    getDeleteclick(state){
+      return state.deleteclick
     },
     getrest(state){
       return state.restfound
@@ -35,6 +40,9 @@ export default new Vuex.Store({
   mutations:{
     changeMessageValue(state, message){
       state.message = message
+    },
+     changedeleteclickValue(state,deleteclick){
+      state.deleteclick = deleteclick
     },
     changerestValue(state, restfound){
       state.restfound = restfound
