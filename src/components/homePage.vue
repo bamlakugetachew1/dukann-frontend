@@ -68,6 +68,9 @@
       </select>
     </div>
     <h2 class="title">Featured Products</h2>
+    
+   <p v-if="this.products.length == 0" class="capitalize text-center  mx-14 mt-5 mb-5 " >retriving products <span class="font-serif text-5xl ml-1 animate-ping">...</span></p> 
+
     <div class="row">
 
        <producPage v-for="product in this.products" :key="product._id"
