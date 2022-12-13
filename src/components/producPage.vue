@@ -100,11 +100,9 @@ export default {
             Authorization: `Bearer ${this.token}`,
           },
         })
-        .then((res) => {
-          // location.reload();
-          localStorage.setItem("itemsdeleted","true");
+        .then(() => {
+          location.reload();
 
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -128,9 +126,6 @@ export default {
           .catch((e) => {
             console.log(e);
           });
-
-          // this.$store.commit('changecartitemsValue',this.data); 
-          // this.$store.commit('changecartnumbers',this.data.length); 
 
       }
 
