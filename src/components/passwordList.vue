@@ -65,33 +65,7 @@ export default {
     };
   },
   
-   mounted(){
-   setInterval( async function () {
-      if(localStorage.getItem("itemsdeleted")== "true"){
-      await axios.get("http://localhost:3000/product/getmyproducts/1", {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
-        .then((res) => {
-          this.products = res.data.data;
-          this.productnumber = res.data.productnumber;
-          this.allowed = this.productnumber/3;
-          this.allowed = Math.ceil(this.allowed);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-       
-       
-       localStorage.setItem("itemsdeleted","false");
-
-      }
-    }, 1000); 
-  },
-  
   created() {
-     this.$store.commit('changedeleteclickValue',0); 
      var  googleloghome = localStorage.getItem("googleloghome");
          if(googleloghome == "true"){
           localStorage.setItem("isuserauthenticated",true);
