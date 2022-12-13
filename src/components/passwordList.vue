@@ -1,4 +1,5 @@
 <template>
+<div id="body1">
   <div class="paddings">
     <div class="shift">
       <adminnav islistpage="true"/>
@@ -38,6 +39,7 @@
             <a href="#" @click="next">Next >></a>
         </div>
   <footerView />
+  </div>
 </template>
 
 <script>
@@ -251,6 +253,14 @@ export default {
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+#body1{
+ 
+  
+    min-height: 100vh;
+
+
+}
 
 html {
   font-family: "Montserrat", Arial, sans-serif;
