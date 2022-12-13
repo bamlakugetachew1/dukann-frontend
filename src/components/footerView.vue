@@ -66,6 +66,8 @@
 }
  .footer{
   margin-top: 35px;
+  bottom: 0;
+
  }
 
  .footer {
