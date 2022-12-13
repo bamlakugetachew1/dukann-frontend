@@ -101,7 +101,9 @@ export default {
           },
         })
         .then(() => {
-          location.reload();
+	localStorage.setItem("itemsdeleted","true");
+
+         // location.reload();
 
         })
         .catch((err) => {
