@@ -37,7 +37,7 @@
             <a href="">{{this.pagenumber}}</a> 
             <a href="#" @click="next">Next >></a>
         </div>
-      <div class="body1">
+      <div v-bind:class = "(this.products.length == 0)?'body1':'body2'">
 
   <footerView />
   </div>
@@ -256,9 +256,13 @@ export default {
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 .body1{
-  margin-top: 350px;
+  margin-top: 250px;
 
 
+}
+
+.body2{
+    margin-top: 35px;
 }
 
 html {
