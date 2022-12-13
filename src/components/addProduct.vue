@@ -175,7 +175,8 @@ export default {
         this.name == "" ||
         this.companyname == "" ||
         this.catagory == "" ||
-        this.description == ""
+        this.description == "" ||
+        this.selectedFile.length == 0
       ) {
         this.required = false;
         window.scrollTo({ top: 0, behavior: 'smooth' });
