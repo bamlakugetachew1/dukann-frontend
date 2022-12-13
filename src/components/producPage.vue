@@ -101,7 +101,9 @@ export default {
           },
         })
         .then((res) => {
-          location.reload();
+          // location.reload();
+	  this.$store.commit('changedeleteclickValue',1); 
+
           console.log(res);
         })
         .catch((err) => {
