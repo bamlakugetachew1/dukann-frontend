@@ -18,7 +18,7 @@ export default new Vuex.Store({
     getMessage(state){
       return state.message
     },
-    getDeleteclick(state){
+    getdeleteclick(state){
       return state.deleteclick
     },
     getrest(state){
