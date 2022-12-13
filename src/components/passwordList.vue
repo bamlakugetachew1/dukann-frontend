@@ -66,10 +66,24 @@ export default {
   },
   
    mounted(){
-   setInterval(function () {
-      console.log("output");
+   setInterval( async function () {
       if(localStorage.getItem("itemsdeleted")== "true"){
-       this.getmyproducts();
+      await axios.get("http://localhost:3000/product/getmyproducts/1", {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((res) => {
+          this.products = res.data.data;
+          this.productnumber = res.data.productnumber;
+          this.allowed = this.productnumber/3;
+          this.allowed = Math.ceil(this.allowed);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+       
+       
        localStorage.setItem("itemsdeleted","false");
 
       }
