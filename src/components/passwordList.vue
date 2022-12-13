@@ -68,7 +68,7 @@ export default {
    mounted(){
    setInterval(function () {
       console.log("output");
-      if(this.$store.getters.getDeleteclick == 1){
+      if(this.$store.getters.getdeleteclick== 1){
        this.getmyproducts();
        this.$store.commit('changedeleteclickValue',0); 
       }
