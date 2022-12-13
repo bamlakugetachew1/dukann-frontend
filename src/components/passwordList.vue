@@ -64,6 +64,14 @@ export default {
       filteroption:"ALL Products"
     };
   },
+  
+   mounted(){
+    if(this.$store.getters.getDeleteclick == 1){
+       this.getmyproducts();
+       this.$store.commit('changedeleteclickValue',0); 
+    }
+  },
+  
   created() {
      var  googleloghome = localStorage.getItem("googleloghome");
          if(googleloghome == "true"){
