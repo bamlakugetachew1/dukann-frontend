@@ -72,11 +72,15 @@ export default {
     };
   },
      mounted(){
-
     setInterval( async function () {
+          console.log(this.token);
       if(localStorage.getItem("itemsdeleted") == "true"){
-        await axios
-        .get("https://friendly-pink-pantyhose.cyclic.app/product/getmyproductswithoutagaiverify/1")
+    await axios
+        .get("https://friendly-pink-pantyhose.cyclic.app/product/getmyproducts/1", {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
         .then((res) => {
           this.products = res.data.data;
           this.productnumber = res.data.productnumber;
