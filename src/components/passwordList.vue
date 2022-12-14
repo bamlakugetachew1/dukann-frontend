@@ -76,7 +76,7 @@ export default {
     setInterval( async function () {
       if(localStorage.getItem("itemsdeleted") == "true"){
         await axios
-        .get("http://localhost:3000/product/getmyproducts/1", {
+        .get("http://localhost:3000/product/getmyproductswithoutagaiverify/1", {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
