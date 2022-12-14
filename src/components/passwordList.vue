@@ -76,11 +76,7 @@ export default {
     setInterval( async function () {
       if(localStorage.getItem("itemsdeleted") == "true"){
         await axios
-        .get("http://localhost:3000/product/getmyproductswithoutagaiverify/1", {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
+        .get("https://friendly-pink-pantyhose.cyclic.app/product/getmyproductswithoutagaiverify/1")
         .then((res) => {
           this.products = res.data.data;
           this.productnumber = res.data.productnumber;
