@@ -6,7 +6,7 @@
   </div>
   <div id="container">
     <div v-if="this.required == false">
-      <p class="ic">all fields are required please fill out</p>
+      <p class="ic capitalize font-serif mb-3 pt-3">all fields are required || only png ang jpeg file allowed</p>
       <p class="ic" @click="close1">
         <i class="fa-solid fa-rectangle-xmark"></i>
       </p>
@@ -102,7 +102,7 @@
       </div>
     </form>
     <!-- // End form -->
-    <!-- <button id="button" @click="addproduct" v-if="this.selectednumber < 5">
+    <!-- <button id="button" @click="addproduct" v-if="this.selectednumber < 5  &&  this.selectedFile != null ">
       ADD PRODUCTS
     </button> -->
     <button class="checkout" @click="addproduct" id="checkout" v-if="this.selectednumber < 5">ADD PRODUCT</button><br><br>
@@ -135,6 +135,8 @@ export default {
       token:"",
       sucess: false,
       required: true,
+      onpass:1,
+
     };
   },
   created() {
@@ -145,6 +147,16 @@ export default {
     onFileChange(e) {
       this.selectedFile = e.target.files;
       this.selectednumber = this.selectedFile.length;
+      
+        for (const i of Object.keys(this.selectedFile)) {
+         
+         if(this.selectedFile[i].type ==  "image/jpeg" || this.selectedFile[i].type ==  "image/png" ){
+             }
+            else{
+           this.onpass = 0;
+           }          
+       }
+      
     },
     close() {
       this.sucess = false;
@@ -176,10 +188,12 @@ export default {
         this.companyname == "" ||
         this.catagory == "" ||
         this.description == "" ||
-        this.selectedFile.length == 0
+        this.onpass == 0 
       ) {
         this.required = false;
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.onpass = 1;
+
       } else {
       document.getElementById("checkout").innerHTML="____________";
       const theButton = document.querySelector(".checkout");
