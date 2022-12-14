@@ -71,33 +71,6 @@ export default {
       filteroption:"ALL Products"
     };
   },
-     mounted(){
-    setInterval( async function () {
-          console.log(this.token);
-      if(localStorage.getItem("itemsdeleted") == "true"){
-    await axios
-        .get("https://friendly-pink-pantyhose.cyclic.app/product/getmyproducts/1", {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
-        .then((res) => {
-          this.products = res.data.data;
-          this.productnumber = res.data.productnumber;
-          this.allowed = this.productnumber/3;
-          this.allowed = Math.ceil(this.allowed);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-       localStorage.setItem("itemsdeleted","false");
-
-      }
-    }, 1000);
-  
-
-  },
-  
   created() {
      var  googleloghome = localStorage.getItem("googleloghome");
          if(googleloghome == "true"){
